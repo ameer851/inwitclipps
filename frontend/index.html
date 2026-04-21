@@ -3,357 +3,59 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>InwitClipps — AI Video Clipping</title>
+  <title>InwitClipps Frontend Launcher</title>
+  <meta http-equiv="refresh" content="0; url=./generated/index.html" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #0d0d0d;
-      color: #f0f0f0;
+      margin: 0;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px 20px;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    header h1 {
-      font-size: 2.4rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #a855f7, #ec4899);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    header p {
-      color: #888;
-      margin-top: 8px;
-      font-size: 0.95rem;
+      display: grid;
+      place-items: center;
+      font-family: Inter, "Segoe UI", sans-serif;
+      color: #f5f3ff;
+      background:
+        radial-gradient(circle at top left, rgba(168, 85, 247, 0.2), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(236, 72, 153, 0.16), transparent 22%),
+        #09090f;
     }
 
     .card {
-      background: #1a1a1a;
-      border: 1px solid #2a2a2a;
-      border-radius: 12px;
-      padding: 28px;
-      width: 100%;
-      max-width: 600px;
-      margin-bottom: 24px;
+      width: min(560px, calc(100vw - 32px));
+      padding: 32px;
+      border-radius: 24px;
+      background: rgba(20, 20, 30, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
     }
 
-    .card h2 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 18px;
-      color: #e0e0e0;
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      letter-spacing: -0.04em;
     }
 
-    label {
-      display: block;
-      font-size: 0.85rem;
-      color: #aaa;
-      margin-bottom: 6px;
+    p {
+      color: #b4b5c3;
+      line-height: 1.7;
     }
 
-    input[type="text"], input[type="password"] {
-      width: 100%;
-      background: #111;
-      border: 1px solid #333;
-      border-radius: 8px;
-      padding: 10px 14px;
-      color: #f0f0f0;
-      font-size: 0.9rem;
-      margin-bottom: 14px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    input[type="text"]:focus, input[type="password"]:focus {
-      border-color: #a855f7;
-    }
-
-    button {
+    a {
+      display: inline-flex;
+      margin-top: 18px;
+      padding: 12px 18px;
+      border-radius: 999px;
       background: linear-gradient(135deg, #a855f7, #ec4899);
-      border: none;
-      border-radius: 8px;
-      color: #fff;
-      cursor: pointer;
-      font-size: 0.9rem;
-      font-weight: 600;
-      padding: 10px 20px;
-      transition: opacity 0.2s;
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
     }
-
-    button:hover { opacity: 0.85; }
-    button:disabled { opacity: 0.4; cursor: not-allowed; }
-
-    .status-badge {
-      display: inline-block;
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 2px 10px;
-      border-radius: 20px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .status-queued      { background: #2d2d00; color: #facc15; }
-    .status-downloading { background: #003060; color: #60a5fa; }
-    .status-transcribing{ background: #002040; color: #38bdf8; }
-    .status-analyzing   { background: #200050; color: #c084fc; }
-    .status-done        { background: #003020; color: #4ade80; }
-    .status-failed      { background: #300010; color: #f87171; }
-
-    #jobs-list { list-style: none; }
-
-    #jobs-list li {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 0;
-      border-bottom: 1px solid #222;
-      font-size: 0.85rem;
-      gap: 12px;
-    }
-
-    #jobs-list li:last-child { border-bottom: none; }
-
-    .job-url {
-      flex: 1;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      color: #ccc;
-    }
-
-    #log {
-      background: #111;
-      border: 1px solid #222;
-      border-radius: 8px;
-      padding: 12px;
-      font-family: monospace;
-      font-size: 0.8rem;
-      color: #6ee7b7;
-      min-height: 80px;
-      max-height: 180px;
-      overflow-y: auto;
-      white-space: pre-wrap;
-      word-break: break-all;
-    }
-
-    #auth-status {
-      font-size: 0.8rem;
-      padding: 4px 10px;
-      border-radius: 6px;
-      margin-bottom: 12px;
-      display: inline-block;
-    }
-
-    .auth-ok  { background: #003020; color: #4ade80; }
-    .auth-no  { background: #300010; color: #f87171; }
-
-    .row { display: flex; gap: 10px; }
-    .row button { flex: 1; }
   </style>
 </head>
 <body>
-
-<header>
-  <h1>InwitClipps</h1>
-  <p>AI-powered viral clip extraction from long-form video</p>
-</header>
-
-<!-- Auth Card -->
-<div class="card">
-  <h2>Authentication (Supabase)</h2>
-  <div id="auth-status" class="auth-no">Not signed in</div>
-
-  <label>Email</label>
-  <input type="text" id="email" placeholder="you@example.com" />
-
-  <label>Password</label>
-  <input type="password" id="password" placeholder="••••••••" />
-
-  <div class="row">
-    <button id="btn-login">Sign In</button>
-    <button id="btn-signup">Sign Up</button>
-    <button id="btn-logout" disabled>Sign Out</button>
+  <div class="card">
+    <h1>InwitClipps frontend</h1>
+    <p>The generated marketing site now lives in <code>frontend/generated</code> and is served automatically by the backend. If your browser does not redirect immediately, use the link below.</p>
+    <a href="./generated/index.html">Open generated site</a>
   </div>
-</div>
-
-<!-- Submit Job Card -->
-<div class="card">
-  <h2>Submit Video Job</h2>
-  <label>YouTube / Video URL</label>
-  <input type="text" id="source-url" placeholder="https://www.youtube.com/watch?v=..." />
-  <button id="btn-submit" disabled>Submit Job</button>
-</div>
-
-<!-- Jobs List Card -->
-<div class="card">
-  <h2>My Jobs</h2>
-  <button id="btn-refresh" style="margin-bottom:14px;background:#222;color:#ccc;border:1px solid #333;" disabled>
-    Refresh Jobs
-  </button>
-  <ul id="jobs-list"><li style="color:#555">Sign in to see jobs.</li></ul>
-</div>
-
-<!-- Console Log -->
-<div class="card">
-  <h2>Console</h2>
-  <div id="log">Waiting...</div>
-</div>
-
-<script type="module">
-  // -----------------------------------------------------------------------
-  // InwitClipps frontend — minimal Supabase auth + job submission demo
-  // Replace SUPABASE_URL and SUPABASE_ANON_KEY with your project values.
-  // The API_BASE points to the local Express backend.
-  // -----------------------------------------------------------------------
-
-  const SUPABASE_URL    = 'https://vkgzuvefyifmvcaoxvxu.supabase.co';
-  const SUPABASE_ANON   = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZrZ3p1dmVmeWlmbXZjYW94dnh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwMTE5NDQsImV4cCI6MjA4ODU4Nzk0NH0.tbo_RnvRe2QsVvjmJw_4tp-MSCOW8hKINukj_2AsRdo';
-  const API_BASE        = 'http://localhost:3001/api/v1';
-
-  // Dynamically load the Supabase JS client from CDN
-  const { createClient } = await import(
-    'https://esm.sh/@supabase/supabase-js@2'
-  );
-
-  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON);
-
-  // --- DOM refs ---
-  const log         = document.getElementById('log');
-  const authStatus  = document.getElementById('auth-status');
-  const btnLogin    = document.getElementById('btn-login');
-  const btnSignup   = document.getElementById('btn-signup');
-  const btnLogout   = document.getElementById('btn-logout');
-  const btnSubmit   = document.getElementById('btn-submit');
-  const btnRefresh  = document.getElementById('btn-refresh');
-  const jobsList    = document.getElementById('jobs-list');
-  const emailInput  = document.getElementById('email');
-  const passwordInput = document.getElementById('password');
-  const sourceUrl   = document.getElementById('source-url');
-
-  let currentToken = null;
-
-  function logMsg(msg) {
-    log.textContent += `\n${new Date().toLocaleTimeString()} — ${msg}`;
-    log.scrollTop = log.scrollHeight;
-  }
-
-  function setAuthUI(session) {
-    if (session) {
-      currentToken = session.access_token;
-      authStatus.textContent = `Signed in as ${session.user.email}`;
-      authStatus.className = 'auth-status auth-ok';
-      btnLogout.disabled = false;
-      btnSubmit.disabled = false;
-      btnRefresh.disabled = false;
-      btnLogin.disabled = true;
-      btnSignup.disabled = true;
-      loadJobs();
-    } else {
-      currentToken = null;
-      authStatus.textContent = 'Not signed in';
-      authStatus.className = 'auth-status auth-no';
-      btnLogout.disabled = true;
-      btnSubmit.disabled = true;
-      btnRefresh.disabled = true;
-      btnLogin.disabled = false;
-      btnSignup.disabled = false;
-      jobsList.innerHTML = '<li style="color:#555">Sign in to see jobs.</li>';
-    }
-  }
-
-  // Check for existing session on load
-  const { data: { session: existingSession } } = await supabase.auth.getSession();
-  setAuthUI(existingSession);
-
-  // Listen for auth state changes
-  supabase.auth.onAuthStateChange((_event, session) => {
-    setAuthUI(session);
-  });
-
-  btnLogin.addEventListener('click', async () => {
-    logMsg('Signing in...');
-    const { error } = await supabase.auth.signInWithPassword({
-      email: emailInput.value,
-      password: passwordInput.value,
-    });
-    if (error) logMsg(`Error: ${error.message}`);
-    else logMsg('Signed in.');
-  });
-
-  btnSignup.addEventListener('click', async () => {
-    logMsg('Signing up...');
-    const { error } = await supabase.auth.signUp({
-      email: emailInput.value,
-      password: passwordInput.value,
-    });
-    if (error) logMsg(`Error: ${error.message}`);
-    else logMsg('Sign up successful — check your email to confirm.');
-  });
-
-  btnLogout.addEventListener('click', async () => {
-    await supabase.auth.signOut();
-    logMsg('Signed out.');
-  });
-
-  btnSubmit.addEventListener('click', async () => {
-    const url = sourceUrl.value.trim();
-    if (!url) return logMsg('Enter a video URL first.');
-    logMsg(`Submitting job for: ${url}`);
-
-    const res = await fetch(`${API_BASE}/jobs`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${currentToken}`,
-      },
-      body: JSON.stringify({ source_url: url }),
-    });
-
-    const data = await res.json();
-    if (!res.ok) {
-      logMsg(`Error: ${data.error}`);
-    } else {
-      logMsg(`Job created: ${data.id} — status: ${data.status}`);
-      sourceUrl.value = '';
-      loadJobs();
-    }
-  });
-
-  btnRefresh.addEventListener('click', loadJobs);
-
-  async function loadJobs() {
-    if (!currentToken) return;
-    const res = await fetch(`${API_BASE}/jobs`, {
-      headers: { 'Authorization': `Bearer ${currentToken}` },
-    });
-    const data = await res.json();
-    if (!res.ok) return logMsg(`Error loading jobs: ${data.error}`);
-
-    if (!data.length) {
-      jobsList.innerHTML = '<li style="color:#555">No jobs yet.</li>';
-      return;
-    }
-
-    jobsList.innerHTML = data.map((j) => `
-      <li>
-        <span class="job-url" title="${j.source_url}">${j.source_url}</span>
-        <span class="status-badge status-${j.status}">${j.status}</span>
-      </li>
-    `).join('');
-  }
-</script>
-
 </body>
 </html>

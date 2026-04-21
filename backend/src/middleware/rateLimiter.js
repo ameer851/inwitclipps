@@ -10,7 +10,7 @@
  * Key dependencies: express-rate-limit
  */
 
-import rateLimit from 'express-rate-limit';
+import rateLimit, { ipKeyGenerator } from 'express-rate-limit';
 
 /**
  * Rate limiter for job creation endpoint.
@@ -24,7 +24,7 @@ export const createJobLimiter = rateLimit({
   // Key by user ID (from auth middleware)
   keyGenerator: (req) => {
     // If user is authenticated, use their ID; otherwise use IP as fallback
-    return req.user?.id || req.ip;
+    return req.user?.id || ipKeyGenerator(req.ip);
   },
   
   // Custom error message

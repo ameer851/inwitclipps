@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InwitClipps API</title>
+  <meta name="description" content="Automate clip generation, captions, and social-ready exports via API." />
+  <meta name="theme-color" content="#0d0d0d" />
+  <link rel="canonical" href="https://inwitclipps.ai/api/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="/assets/styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"InwitClipps","url":"https://inwitclipps.ai","sameAs":["https://x.com/","https://linkedin.com/","https://youtube.com/","https://discord.com/"]}</script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell header-shell">
+      <a class="brand" href="/">
+        <span class="brand-mark">IC</span>
+        <span>
+          <strong>InwitClipps</strong>
+          <small>AI-powered viral clip extraction from long-form video</small>
+        </span>
+      </a>
+      <button class="mobile-toggle" type="button" data-nav-toggle aria-label="Toggle navigation">Menu</button>
+      <nav class="site-nav" data-nav-drawer>
+        <a class="nav-link" href="/ai-studio/">AI Studio</a><a class="nav-link" href="/spark/">Our AI</a><a class="nav-link" href="/who-we-help/social-media-marketers/">Use cases</a><a class="nav-link" href="/tools/">Tools</a><a class="nav-link" href="/blog/">Resources</a><a class="nav-link" href="/pricing/">Pricing</a><a class="nav-link active" href="/api/">API</a>
+      </nav>
+      <div class="header-actions">
+        <a class="button button-secondary" href="/contact/">Sign in</a>
+        <a class="button button-primary" href="/pricing/">Sign up for free</a>
+      </div>
+    </div>
+  </header>
+  <main>
+    
+    <section class="hero shell">
+      <div class="hero-copy">
+        <p class="eyebrow">InwitClipps API</p>
+        <h1>Automate social-ready shorts generation via API</h1>
+        <p class="hero-subtitle">Position InwitClipps as an embeddable workflow engine for clip ranking, captioning, rendering, and downstream distribution.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="/contact/">START BUILDING</a><a class="button button-secondary" href="/knowledge-base/api-quickstart/">Knowledge base</a>
+        </div>
+        <div class="pill-row">
+          <span class="pill">Python</span><span class="pill">Java</span><span class="pill">Go</span><span class="pill">Curl</span>
+        </div>
+      </div>
+      <div class="hero-panel card">
+        <div class="signal-card">
+          <span class="signal-label">Live pipeline</span>
+          <strong>Upload → transcript → clip ranking → captions → export</strong>
+          <p>Preserve the current InwitClipps product surface while expanding it into a full marketing, pricing, API, and SEO system.</p>
+        </div>
+        <div class="mini-grid">
+          <div><span>Creators</span><strong>Short-form output</strong></div>
+          <div><span>Marketers</span><strong>Campaign packaging</strong></div>
+          <div><span>Agencies</span><strong>Client delivery</strong></div>
+          <div><span>API teams</span><strong>Embedded workflows</strong></div>
+        </div>
+      </div>
+    </section>
+  
+    <section class="shell section">
+      <div class="section-heading">
+        <h2>Why choose InwitClipps API</h2>
+        <p>Enterprise-minded positioning, reliability framing, and workflow depth.</p>
+      </div>
+      <div class="card-grid">
+        
+          <article class="card">
+            <h3>Automate social-ready clip generation</h3>
+            <p>Create projects, fetch ranked clips, and route metadata into your own product or content operations stack.</p>
+          </article>
+        
+          <article class="card">
+            <h3>Reliable engine</h3>
+            <p>Design for queued rendering, safe retries, and high-volume clip workloads without handing orchestration to the browser.</p>
+          </article>
+        
+          <article class="card">
+            <h3>Security and governance</h3>
+            <p>Layer auth, env-based secrets, compliance review, and usage controls on top of the same backend stack that powers jobs today.</p>
+          </article>
+        
+      </div>
+    </section>
+  
+    <section class="shell section">
+      <div class="section-heading">
+        <h2>Integrate InwitClipps API into your app</h2>
+        <p>Tabbed code examples replicate the mature API page surface from the prompt while fitting the InwitClipps brand.</p>
+      </div>
+      <div class="code-shell card" data-code-tabs>
+        <div class="tab-list">
+          <button class="tab-button active" data-code-tab="Python" type="button">Python</button><button class="tab-button" data-code-tab="Java" type="button">Java</button><button class="tab-button" data-code-tab="Go" type="button">Go</button><button class="tab-button" data-code-tab="Curl" type="button">Curl</button>
+        </div>
+        
+          <pre class="code-panel active" data-code-panel="Python"><code>import requests
+
+VIZARD_API_KEY = &quot;YOUR_API_KEY&quot;
+headers = {
+    &quot;Authorization&quot;: f&quot;Bearer {VIZARD_API_KEY}&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+}
+
+project = requests.post(
+    &quot;https://inwitclipps.ai/api/v1/projects&quot;,
+    headers=headers,
+    json={&quot;source_url&quot;: &quot;https://youtube.com/watch?v=demo&quot;},
+).json()
+
+clips = requests.get(
+    f&quot;https://inwitclipps.ai/api/v1/projects/{project['id']}/clips&quot;,
+    headers=headers,
+).json()
+print(clips)
+</code></pre>
+        
+          <pre class="code-panel" data-code-panel="Java"><code>HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create(&quot;https://inwitclipps.ai/api/v1/projects&quot;))
+    .header(&quot;Authorization&quot;, &quot;Bearer YOUR_API_KEY&quot;)
+    .header(&quot;Content-Type&quot;, &quot;application/json&quot;)
+    .POST(HttpRequest.BodyPublishers.ofString(
+        &quot;{\&quot;source_url\&quot;:\&quot;https://youtube.com/watch?v=demo\&quot;}&quot;
+    ))
+    .build();</code></pre>
+        
+          <pre class="code-panel" data-code-panel="Go"><code>payload := strings.NewReader(`{&quot;source_url&quot;:&quot;https://youtube.com/watch?v=demo&quot;}`)
+req, _ := http.NewRequest(&quot;POST&quot;, &quot;https://inwitclipps.ai/api/v1/projects&quot;, payload)
+req.Header.Add(&quot;Authorization&quot;, &quot;Bearer YOUR_API_KEY&quot;)
+req.Header.Add(&quot;Content-Type&quot;, &quot;application/json&quot;)</code></pre>
+        
+          <pre class="code-panel" data-code-panel="Curl"><code>curl -X POST https://inwitclipps.ai/api/v1/projects \
+  -H &quot;Authorization: Bearer YOUR_API_KEY&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d '{&quot;source_url&quot;:&quot;https://youtube.com/watch?v=demo&quot;}'</code></pre>
+        
+        <div class="code-footer">
+          <a class="button button-primary" href="/knowledge-base/api-quickstart/">READ DOCUMENTATION</a>
+        </div>
+      </div>
+    </section>
+  
+    <section class="shell section">
+      <div class="section-heading">
+        <h2>Questions?</h2>
+        <p>FAQ</p>
+      </div>
+      <div class="faq-list">
+        
+          <article class="faq-item card open" data-faq-item>
+            <button class="faq-question" data-faq-trigger type="button">
+              <span>Who gets access to the API?</span>
+              <span>+</span>
+            </button>
+            <div class="faq-answer">API access is aimed at teams building workflows, products, or services on top of AI clipping and social distribution.</div>
+          </article>
+        
+          <article class="faq-item card" data-faq-item>
+            <button class="faq-question" data-faq-trigger type="button">
+              <span>How does API pricing work?</span>
+              <span>+</span>
+            </button>
+            <div class="faq-answer">Pricing is based on volume, workflow shape, and support expectations. Team and enterprise buyers can request custom plans.</div>
+          </article>
+        
+          <article class="faq-item card" data-faq-item>
+            <button class="faq-question" data-faq-trigger type="button">
+              <span>Where should I start?</span>
+              <span>+</span>
+            </button>
+            <div class="faq-answer">Start with project creation, clip retrieval, and template-aware rendering. The API page includes code examples and documentation entry points.</div>
+          </article>
+        
+      </div>
+    </section>
+  
+  </main>
+  
+    <footer class="site-footer">
+      <section class="footer-cta shell card inset-card">
+        <div>
+          <p class="eyebrow">Get started for free</p>
+          <h2>Build a Vizard-scale marketing surface on top of the InwitClipps product.</h2>
+          <p>Use the site, templates, and API positioning to package clips, captions, and content ops with one coherent system.</p>
+        </div>
+        <div class="footer-cta-actions">
+          <a class="button button-primary" href="/pricing/">Get started for free</a>
+          <a class="button button-secondary" href="/api/">Explore the API</a>
+        </div>
+      </section>
+      <div class="shell footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="/">
+            <span class="brand-mark">IC</span>
+            <span>
+              <strong>InwitClipps</strong>
+              <small>AI-powered viral clip extraction from long-form video</small>
+            </span>
+          </a>
+          <div class="qr-card">
+            <span class="qr-badge">iOS</span>
+            <p>Get the app</p>
+            <small>Scan the QR-style launch card or use the web workspace.</small>
+          </div>
+          <div class="social-row"><a href="https://x.com/" target="_blank" rel="noreferrer">X</a><a href="https://linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a><a href="https://youtube.com/" target="_blank" rel="noreferrer">YouTube</a><a href="https://discord.com/" target="_blank" rel="noreferrer">Discord</a></div>
+        </div>
+        
+      <div class="footer-group">
+        <h3>Tools</h3>
+        <a href="/tools/ai-podcast-clip-generator/">AI podcast clip generator</a><a href="/tools/ai-video-editor/">AI video editor</a><a href="/tools/ai-video-generator/">AI video generator</a><a href="/tools/video-translator/">Video translator</a><a href="/tools/tiktok-video-editor/">TikTok video editor</a><a href="/tools/youtube-clip-maker/">YouTube clip maker</a><a href="/tools/">All tools</a>
+      </div>
+    
+      <div class="footer-group">
+        <h3>Who we help</h3>
+        <a href="/who-we-help/social-media-marketers/">Social media marketers</a><a href="/who-we-help/content-marketers/">Content marketers</a><a href="/who-we-help/performance-marketers/">Performance marketers</a><a href="/who-we-help/event-marketers/">Event marketers</a><a href="/who-we-help/podcasters/">Podcasters</a><a href="/who-we-help/agencies/">Agencies</a>
+      </div>
+    
+      <div class="footer-group">
+        <h3>Resources</h3>
+        <a href="/blog/">Blog</a><a href="/knowledge-base/">Knowledge base</a><a href="/pricing/">Pricing</a><a href="/api/">API</a><a href="/alternatives/opus/">Vizard vs Opus</a><a href="/alternatives/capcut/">Vizard vs CapCut</a>
+      </div>
+    
+      <div class="footer-group">
+        <h3>Company</h3>
+        <a href="/about/">About</a><a href="/affiliate/">Affiliate</a><a href="/contact/">Contact</a><a href="/user-service/">Terms of service</a><a href="/privacy-policy/">Privacy policy</a><a href="/cookies-policy/">Cookie policy</a>
+      </div>
+    
+      </div>
+      <div class="shell footer-meta">
+        <span>© InwitClipps. All rights reserved.</span>
+        <div class="footer-meta-links">
+          <a href="/user-service/">Terms of service</a>
+          <a href="/privacy-policy/">Privacy policy</a>
+          <a href="/cookies-policy/">Cookie policy</a>
+          <a href="/google-api-services-disclosure/">Google API disclosure</a>
+          <a href="/sitemap/">Sitemap</a>
+        </div>
+      </div>
+    </footer>
+  
+  <aside class="cookie-banner" data-cookie-banner>
+    <p><strong>🍪</strong> This website uses cookies to preserve the complete marketing-site experience.</p>
+    <div class="cookie-actions">
+      <a class="button button-secondary" href="/cookies-policy/">Learn more</a>
+      <button class="button button-primary" type="button" data-cookie-accept>Accept</button>
+    </div>
+  </aside>
+  <script type="module" src="/assets/app.js"></script>
+</body>
+</html>
